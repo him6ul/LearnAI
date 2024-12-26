@@ -1,6 +1,10 @@
+from __future__ import annotations
+
+
 class Locater:
 
-    def __init__(self, x, y):
+    def __init__(self, x, y, parent: Locater):
+        self.parent = parent
         self.x = x
         self.y = y
 
@@ -8,10 +12,16 @@ class Locater:
         return self.x == other.x and self.y == other.y
 
     def __str__(self):
-        return "({}, {})".format(self.x, self.y)
+        if self.parent is None:
+            return "({}, {}); Parent: None".format(self.x, self.y)
+        else:
+            return "({}, {}); Parent: ({}, {})".format(self.x, self.y, self.parent.x, self.parent.y)
 
     def __repr__(self):
         return str(self)
+
+    def set_parent(self, parent):
+        self.parent = parent
 
     @staticmethod
     def add_this_child(child, max_x, max_y):
@@ -19,12 +29,12 @@ class Locater:
 
     def children(self, max_x, max_y):
 
-        child_a = Locater(self.x, self.y + 1)
-        child_b = Locater(self.x, self.y - 1)
-        child_c = Locater(self.x + 1, self.y)
-        child_d = Locater(self.x - 1, self.y)
-        child_e = Locater(self.x + 1, self.y + 1)
-        child_f = Locater(self.x - 1, self.y - 1)
+        child_a = Locater(self.x, self.y + 1, self)
+        child_b = Locater(self.x, self.y - 1, self)
+        child_c = Locater(self.x + 1, self.y, self)
+        child_d = Locater(self.x - 1, self.y, self)
+        child_e = Locater(self.x + 1, self.y + 1, self)
+        child_f = Locater(self.x - 1, self.y - 1, self)
 
         result = []
 

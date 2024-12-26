@@ -11,11 +11,10 @@ y_goal = 10
 def main():
     print("I am solving the maze")
 
-    locator_initial = Locater.Locater(x_start, y_start)
-    locator_goal = Locater.Locater(x_goal, y_goal)
+    locator_initial = Locater.Locater(x_start, y_start, None)
+    locator_goal = Locater.Locater(x_goal, y_goal, None)
 
     print("The final goal is: ", locator_goal)
-    print("The initial state is: ", locator_initial)
 
     visited = []
     stack = deque()
@@ -25,8 +24,6 @@ def main():
     while True:
         if curr_state == locator_goal:
             print("Current state is: ", curr_state)
-            print("Locater state is: ", locator_goal)
-
             print("We have reached the goal!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             break
         else:
