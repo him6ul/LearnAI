@@ -3,25 +3,23 @@ from __future__ import annotations
 
 class Locater:
 
-    def __init__(self, x, y, parent: Locater):
-        self.parent = parent
+    def __init__(self, x, y, parent: Locater, path):
         self.x = x
         self.y = y
+        self.parent = parent
+        self.path = path + "(" + str(x) + "," + str(y) + "),"
 
     def __eq__(self, other):
         return self.x == other.x and self.y == other.y
 
     def __str__(self):
         if self.parent is None:
-            return "({}, {}); Parent: None".format(self.x, self.y)
+            return "({}, {}); Parent: None; Path: {}".format(self.x, self.y, self.path)
         else:
-            return "({}, {}); Parent: ({}, {})".format(self.x, self.y, self.parent.x, self.parent.y)
+            return "({}, {}); Parent: ({}, {}); Path: {}".format(self.x, self.y, self.parent.x, self.parent.y, self.path[:-1])
 
     def __repr__(self):
         return str(self)
-
-    def set_parent(self, parent):
-        self.parent = parent
 
     @staticmethod
     def add_this_child(child, max_x, max_y):
@@ -29,12 +27,12 @@ class Locater:
 
     def children(self, max_x, max_y):
 
-        child_a = Locater(self.x, self.y + 1, self)
-        child_b = Locater(self.x, self.y - 1, self)
-        child_c = Locater(self.x + 1, self.y, self)
-        child_d = Locater(self.x - 1, self.y, self)
-        child_e = Locater(self.x + 1, self.y + 1, self)
-        child_f = Locater(self.x - 1, self.y - 1, self)
+        child_a = Locater(self.x, self.y + 1, self, self.path)
+        child_b = Locater(self.x, self.y - 1, self, self.path)
+        child_c = Locater(self.x + 1, self.y, self, self.path)
+        child_d = Locater(self.x - 1, self.y, self, self.path)
+        child_e = Locater(self.x + 1, self.y + 1, self, self.path)
+        child_f = Locater(self.x - 1, self.y - 1, self, self.path)
 
         result = []
 

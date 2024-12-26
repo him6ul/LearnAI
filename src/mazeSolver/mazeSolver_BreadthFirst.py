@@ -38,7 +38,7 @@ def main():
                 print("No solution")
                 break
 
-            curr_state = stack.pop()
+            curr_state = stack.popleft()
 
 
 if __name__ == "__main__":
